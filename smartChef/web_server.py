@@ -28,10 +28,10 @@ def generate_recipe_image(recipe_name, recipe_description):
         # 清理菜名中的特殊字符，用于文件名
         clean_name = recipe_name.replace("*", "").replace("\"", "").replace("?", "").replace(":", "").replace("<", "").replace(">", "").replace("|", "").replace("/", "_").replace("\\", "_")
         
-        # 构建提示词，包含菜名和菜品描述
-        prompt = f"一盘美味可口的{recipe_name}，高清专业美食摄影，顶视角，光线明亮，摆盘精美，背景简洁。{recipe_description}"
+        # 构建提示词，包含菜名和菜品描述，改为极简风格信息图
+        prompt = f"{recipe_name}的制作步骤信息图，在白色背景上呈现极简风格。包含标注好的所有食材照片，使用虚线连接代表制作步骤的图标（如打蛋碗图标、炒锅图标、混合/翻炒图标）。信息图底部展示最终装盘的{recipe_name}成品照片。{recipe_description} 布局简洁带柔和阴影，字体整洁，呈现现代极简风格。"
         
-        print(f"正在为{recipe_name}生成真实图片...")
+        print(f"正在为{recipe_name}生成极简风格信息图...")
         
         # 调用DALL-E 3 API生成图片
         response = client.images.generate(
@@ -202,4 +202,4 @@ if __name__ == '__main__':
     # 确保recipes和images目录存在
     os.makedirs("recipes", exist_ok=True)
     os.makedirs("images", exist_ok=True)
-    app.run(debug=True, port=5000) 
+    app.run(debug=True, port=5000, host='0.0.0.0') 

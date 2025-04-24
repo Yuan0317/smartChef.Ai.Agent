@@ -38,17 +38,18 @@ class ImageGeneratorAction(lf.agentic.Action):
             if self.key_ingredients and len(self.key_ingredients) > 0:
                 ingredients_info = f"，主要材料包括{', '.join(self.key_ingredients)}"
             
-            description = f"一道美味的{cuisine_info}{self.dish_name}{ingredients_info}，摆盘精美，色香味俱全。"
+            description = f"一道美味的{cuisine_info}{self.dish_name}{ingredients_info}"
         
-        # 添加图片风格
-        style_info = ""
+        # 添加图片风格 - 改为极简风格信息图
+        style_info = "，在白色背景上呈现极简风格。包含标注好的所有食材照片，使用虚线连接代表制作步骤的图标（如打蛋碗图标、炒锅图标、混合/翻炒图标）。信息图底部展示最终装盘的成品照片。布局简洁带柔和阴影，字体整洁，呈现现代极简风格。"
+        
         if self.image_style:
             if self.image_style == "realistic":
-                style_info = "，高清照片风格，逼真的食物摄影"
+                style_info = "，在白色背景上呈现极简风格。包含标注好的所有食材照片，使用虚线连接代表制作步骤的图标（如打蛋碗图标、炒锅图标、混合/翻炒图标）。信息图底部展示最终装盘的成品照片。布局简洁带柔和阴影，字体整洁，呈现现代极简风格。"
             elif self.image_style == "artistic":
-                style_info = "，艺术风格，富有创意的美食摄影，柔和的光线"
+                style_info = "，在白色背景上呈现艺术极简风格。包含标注好的所有食材照片，使用虚线连接代表制作步骤的图标（如打蛋碗图标、炒锅图标、混合/翻炒图标）。信息图底部展示最终装盘的成品照片。布局简洁带柔和阴影，字体整洁，呈现现代极简艺术风格。"
             elif self.image_style == "cartoon":
-                style_info = "，卡通风格，可爱的食物插画"
+                style_info = "，在白色背景上呈现卡通极简风格。包含标注好的所有食材照片，使用虚线连接代表制作步骤的图标（如打蛋碗图标、炒锅图标、混合/翻炒图标）。信息图底部展示最终装盘的成品照片。布局简洁带柔和阴影，字体整洁，呈现现代极简卡通风格。"
         
         # 完整的图片生成提示词
         image_prompt = f"{description}{style_info}"
@@ -85,18 +86,19 @@ class ImageGeneratorAction(lf.agentic.Action):
         ingredients_info = f"主要食材: {', '.join(self.key_ingredients)}" if self.key_ingredients else "主要食材: 未指定"
         description_info = f"描述: {self.dish_description}" if self.dish_description else "描述: 无"
         
-        prompt = f"""请基于以下信息，创建一个详细且生动的图片生成提示词，用于生成一道美食的照片:
+        prompt = f"""请基于以下信息，创建一个详细且生动的图片生成提示词，用于生成一道美食的信息图:
 
         {dish_info}
         {cuisine_info}
         {ingredients_info}
         {description_info}
         
-        提示词应该:
-        1. 详细描述食物的外观、颜色、质地和摆盘
-        2. 提及关键食材的视觉特点
-        3. 描述适合该菜品的场景和氛围
-        4. 包含摄影风格建议(如光线、角度、焦点等)
+        提示词要求:
+        1. 设计一个在白色背景上的极简风格信息图
+        2. 包含所有食材的标注照片
+        3. 使用虚线连接代表制作步骤的图标（例如：打蛋碗图标、炒锅图标、混合/翻炒图标等）
+        4. 信息图底部展示最终装盘的成品照片
+        5. 布局简洁带柔和阴影，字体整洁，呈现现代极简风格
         
         请直接提供完整的提示词，不要包含解释或其他内容。
         """
